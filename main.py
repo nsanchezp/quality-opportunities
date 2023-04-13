@@ -36,6 +36,10 @@ def check_data_quality(df):
         if is_datetime64_dtype(df[column]):
             quality_checks.append("Datetime data type")
         
+        # Check 7: Check if column has categorical data type and has a limited number of unique values
+        if is_categorical_dtype(df[column]) and len(df[column].unique()) > 10:
+            quality_checks.append("Categorical data type with too many unique values")   
+        
         # Add quality checks to quality report
         quality_report[column] = quality_checks
     
